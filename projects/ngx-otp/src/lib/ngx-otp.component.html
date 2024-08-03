@@ -1,0 +1,23 @@
+<div class="otp-container">
+    <ng-container *ngFor="let otpValue of otpControls; let i = index">
+        <mat-form-field [appearance]="variant" class="otp-input" [id]="'otp_input_' + i">
+            <input
+              matInput
+              [type]="mask ? 'password' : 'text'"
+              [class]="inputClass"
+              [attr.tabindex]="tabIndex ? i + 1 : -1"
+              [attr.autofocus]="autofocus && i === 0 ? true : null"
+              [attr.readonly]="readonly"
+              [attr.disabled]="disabled"
+              [value]="otpValue"
+              [attr.data-index]="i"
+              (input)="onInputChange($event, i)"
+              (keydown)="onKeyDown($event, i)"
+              maxlength="1"
+              #otpInput
+              [id]="'my_input_' + i"
+            />
+          </mat-form-field>
+    </ng-container>
+</div>
+  
