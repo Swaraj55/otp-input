@@ -5,12 +5,11 @@ import { MatInput } from '@angular/material/input';
 @Component({
   selector: 'ngx-otp',
   templateUrl: './ngx-otp.component.html',
-  styleUrls: ['./ngx-otp.component.scss']
+  styleUrls: ['./ngx-otp.component.scss'],
 })
 export class NgxOtpComponent implements OnInit, OnChanges {
+  @ViewChildren('otpInput') otpInput!: QueryList<ElementRef>;
 
-  @ViewChildren('otpInput') otpInput!: QueryList<ElementRef>;;
-  
   @Input() disabled: boolean = false;
   @Input() readonly: boolean = false;
   @Input() autofocus: boolean = true; // true by default
@@ -23,7 +22,6 @@ export class NgxOtpComponent implements OnInit, OnChanges {
   @Input() inputClass: string = '';
   @Input() variant: MatFormFieldAppearance = 'outline';
   @Input() regex: string = '';
- 
 
   // Emitters
   @Output() onOtpChange: EventEmitter<string> = new EventEmitter<string>();
@@ -32,64 +30,76 @@ export class NgxOtpComponent implements OnInit, OnChanges {
   otpControls: Array<any> = new Array(4).fill(null);
 
   constructor(private renderer: Renderer2) {}
-  
-  ngOnChanges(changes: SimpleChanges): void {
-    
-  }
+
+  ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {
-    this.otpControls = new Array(this.length).fill(null)
+    this.otpControls = new Array(this.length).fill(null);
   }
 
-  onInputChange(event: Event, index: number) {
-    let userInput = event.target as HTMLInputElement;
+  onInputChange(event: any) {
+    const input = event.target as HTMLInputElement;
+    const index = Number(input.getAttribute('data-index'));
 
-    // Validate input based on the integerOnly and regex properties
+    // If integerOnly is true then if user try to enetered non integer value make the field empty
     if (this.integerOnly) {
-      userInput.value = userInput.value.replace(/[^0-9]/g, '');
-    } else if (this.regex) {
-      const regex = new RegExp(this.regex);
-      if (!regex.test(userInput.value)) {
-        userInput.value = '';
+      input.value = input.value.replace(/\D/g, '');
+    }
+
+    if (input.value.length > 0) {
+      if (index < this.otpControls.length - 1) {
+        this.otpInput.toArray()[index + 1].nativeElement.focus();
       }
     }
 
-    // Set the value and emit changes
-    this.otpControls[index] = userInput.value;
-    console.log(this.otpControls)
-    const otpValue = this.otpControls.join('');
-    this.onOtpChange.emit(otpValue);
+    this.updateOtpValue();
+  }
 
-    // Move focus to the next input if applicable
-    if (userInput.value&& index < this.otpInput.length  - 1) {
-      const nextInput = this.otpInput.toArray()[index];
-      if (nextInput) {
-        nextInput.nativeElement.focus();
-        nextInput.nativeElement.value = '';
-      }
+  onKeyDown(event: KeyboardEvent): void {
+    console.log('onKeyDown', event.target);
+    const input = event.target as HTMLInputElement;
+    const index = Number(input.getAttribute('data-index'));
+    
+    // Prevent non-integer keys if integerOnly is true
+    // if (this.integerOnly && !/^[0-9]$/.test(event.key) && event.key !== 'Backspace') {
+    //   event.preventDefault();
+    // }
+
+    if (event.key === 'Backspace' && !input.value && index > 0) {
+      this.otpInput.toArray()[index - 1].nativeElement.focus();
     }
+  }
+
+  onPaste(event: ClipboardEvent): void {
+    let pasteData = event.clipboardData?.getData('text').trim() || '';
+    console.log('pasteData', pasteData)
+    // If integerOnly is true, filter out non-numeric characters
+    if (this.integerOnly && pasteData) {
+      pasteData = pasteData.replace(/\D/g, '');
+    }
+  
+    if (pasteData && pasteData.length === this.otpControls.length) {
+      this.otpControls.forEach((_, index) => {
+        const input = this.otpInput.toArray()[index].nativeElement;
+        input.value = pasteData[index];
+      });
+  
+      this.updateOtpValue();
+  
+      // Focus on the next input after the last filled input
+      const lastIndex = this.otpControls.length - 1;
+      this.otpInput.toArray()[lastIndex].nativeElement.focus();
+    }
+  
+    event.preventDefault();
+  }  
+
+  updateOtpValue(): void {
+    const otpValue = this.otpInput.toArray().map(input => input.nativeElement.value).join('');
+    console.log('OTP Value:', otpValue); // Handle the OTP value as needed
+    this.onOtpChange.emit(otpValue); // Emit the OTP value
 
     // Check if the OTP is complete
-    if (otpValue.length === this.length) {
-      this.onOtpComplete.emit(otpValue);
-    }
-  }
-
-
-  onKeyDown(event: any, index: number) {
-    if (event.key === 'Backspace' && index > 0) {
-      event.preventDefault();
-      
-      // Clear the current input value
-      this.otpControls[index] = '';
-      
-      // Move focus to the previous input if applicable
-      if (index > 0) {
-        const previousInput = this.otpInput.toArray()[index - 1];
-        if (previousInput) {
-          previousInput.nativeElement.focus();
-        }
-      }
-    }
+    if(otpValue.length === this.otpControls.length) this.onOtpComplete.emit(otpValue);
   }
 }

@@ -9,13 +9,14 @@
               [attr.autofocus]="autofocus && i === 0 ? true : null"
               [attr.readonly]="readonly"
               [attr.disabled]="disabled"
-              [value]="otpValue"
               [attr.data-index]="i"
-              (input)="onInputChange($event, i)"
-              (keydown)="onKeyDown($event, i)"
+              (input)="onInputChange($event)"
+              (keydown)="onKeyDown($event)"
+              (paste)="onPaste($event)"
               maxlength="1"
               #otpInput
               [id]="'my_input_' + i"
+              [pattern]="integerOnly ? '\\d*' : ''"
             />
           </mat-form-field>
     </ng-container>
