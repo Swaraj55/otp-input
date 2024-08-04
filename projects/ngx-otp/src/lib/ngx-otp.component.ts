@@ -24,8 +24,8 @@ export class NgxOtpComponent implements OnInit, OnChanges {
   @Input() regex: string = '';
 
   // Emitters
-  @Output() onOtpChange: EventEmitter<string> = new EventEmitter<string>();
-  @Output() onOtpComplete: EventEmitter<string> = new EventEmitter<string>();
+  @Output() otpChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() otpComplete: EventEmitter<string> = new EventEmitter<string>();
 
   otpControls: Array<any> = new Array(4).fill(null);
 
@@ -97,9 +97,11 @@ export class NgxOtpComponent implements OnInit, OnChanges {
   updateOtpValue(): void {
     const otpValue = this.otpInput.toArray().map(input => input.nativeElement.value).join('');
     console.log('OTP Value:', otpValue); // Handle the OTP value as needed
-    this.onOtpChange.emit(otpValue); // Emit the OTP value
+    this.otpChange.emit(otpValue); // Emit the OTP value
 
     // Check if the OTP is complete
-    if(otpValue.length === this.otpControls.length) this.onOtpComplete.emit(otpValue);
+    if (otpValue.length === this.otpControls.length) {
+      this.otpComplete.emit(otpValue);
+    }
   }
 }

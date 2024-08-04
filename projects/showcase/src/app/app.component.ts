@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'showcase';
+
+  onOtpComplete(event:any):void {
+    console.log('onOtpComplete..',event);
+  }
+
+  onOtpChange(event:any):void {
+    console.log('onOtpChange..',event);
+  }
 }

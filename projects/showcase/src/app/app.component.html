@@ -1,5 +1,10 @@
 <ngx-otp
   [length]="6"
   [mask]="false"
-  [integerOnly]="true"
+  [integerOnly]="false"
+  [disabled]="false"
+  variant="outline"
+  [readonly]="false"
+  (otpChange)="onOtpChange($event)"
+  (otpComplete)="onOtpComplete($event)"
 ></ngx-otp>
