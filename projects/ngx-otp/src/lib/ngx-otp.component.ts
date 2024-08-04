@@ -1,13 +1,12 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, Renderer2, SimpleChanges, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, QueryList, Renderer2, SimpleChanges, ViewChildren } from '@angular/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
-import { MatInput } from '@angular/material/input';
 
 @Component({
   selector: 'ngx-otp',
   templateUrl: './ngx-otp.component.html',
   styleUrls: ['./ngx-otp.component.scss'],
 })
-export class NgxOtpComponent implements OnInit, OnChanges {
+export class NgxOtpComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChildren('otpInput') otpInput!: QueryList<ElementRef>;
 
   @Input() disabled: boolean = false;
@@ -29,12 +28,19 @@ export class NgxOtpComponent implements OnInit, OnChanges {
 
   otpControls: Array<any> = new Array(4).fill(null);
 
-  constructor(private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2, private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {
     this.otpControls = new Array(this.length).fill(null);
+  }
+
+  ngAfterViewInit(): void {
+    if (this.autofocus) {
+      this.otpInput.first.nativeElement.focus();
+      this.cdr.detectChanges();
+    }
   }
 
   onInputChange(event: any) {
@@ -56,7 +62,6 @@ export class NgxOtpComponent implements OnInit, OnChanges {
   }
 
   onKeyDown(event: KeyboardEvent): void {
-    console.log('onKeyDown', event.target);
     const input = event.target as HTMLInputElement;
     const index = Number(input.getAttribute('data-index'));
     
@@ -96,7 +101,6 @@ export class NgxOtpComponent implements OnInit, OnChanges {
 
   updateOtpValue(): void {
     const otpValue = this.otpInput.toArray().map(input => input.nativeElement.value).join('');
-    console.log('OTP Value:', otpValue); // Handle the OTP value as needed
     this.otpChange.emit(otpValue); // Emit the OTP value
 
     // Check if the OTP is complete
