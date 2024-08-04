@@ -1,27 +1,121 @@
-# OtpInput
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.8.
+# ngx-otp-code-input
 
-## Development server
+ngx-otp-code-input is an Angular component for OTP (One-Time Password) input. This component is highly customizable, allowing for various configurations such as masking, integer-only input, autofocus, and more.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+If you like the library, please consider giving it a ⭐ on GitHub.
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Features
 
-## Build
+- Customizable Length: Specify the number of OTP input fields.
+- Masking: Hide input values, useful for password-like behavior.
+- Integer Only: Restrict input to only integers.
+- Autofocus: Automatically focus on the first input field.
+- Read-only and Disabled States: Make the input fields read-only or disabled.
+- Tab Index: Control tab navigation between input fields.
+- Events: Emit events on OTP change and completion.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Installation
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Install the package via npm:
 
-## Running end-to-end tests
+```bash
+  npm install ngx-otp-code-input
+```
+    
+## Usage
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+#### Import the Module
+Add **NgxOtpCodeInputModule** to your Angular module:
+```javascript
+import { NgxOtpCodeInputModule } from 'ngx-otp-code-input';
 
-## Further help
+@NgModule({
+  declarations: [
+    // your components
+  ],
+  imports: [
+    // other modules
+    NgxOtpCodeInputModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```
+
+#### Use the Component in Your Template
+
+Add the **ngx-otp-code-input** component to your template:
+
+```javascript
+<ngx-otp-code-input
+  [length]="6"
+  [mask]="false"
+  [integerOnly]="false"
+  [disabled]="false"
+  variant="outline"
+  [readonly]="false"
+  [autofocus]="true"
+  [tabIndex]="true"
+  (otpChange)="onOtpChange($event)"
+  (otpComplete)="onOtpComplete($event)"
+></ngx-otp-code-input>
+
+```
+
+#### Handle Events in Your Component
+
+Add event handlers in your component:
+
+```javascript
+export class AppComponent {
+  onOtpComplete(event: string): void {
+    console.log('OTP Complete:', event);
+  }
+
+  onOtpChange(event: string): void {
+    console.log('OTP Change:', event);
+  }
+}
+
+```
+## Configuration
+
+#### Inputs
+
+| Input     | Type     | Default   |   Description          |
+| :-------- | :------- | :-------- | :----------------------|
+| `length`  | `number` | **4**     | Number of OTP input fields.     |
+| `mask`  | `boolean` | **false**     | Hide the input values (like a password field).|
+| `integerOnly`  | `boolean` | **false** | Restrict input to only integer values.|
+| `disabled`  | `boolean` | **false**     | Disable the input fields.|
+| `readonly`  | `boolean` | **false**     | Make the input fields read-only.|
+| `autofocus`  | `boolean` | **true**     | Automatically focus on the first input field.|
+| `tabIndex`  | `boolean` | **false**     | Enable tab navigation between input fields.|
+| `inputClass`  | `string` | **''**     | Custom CSS class for the input fields.|
+| `variant`  | `MatFormFieldAppearance` | **'outline', 'fill'**     | Appearance of the Material form field.|
+| `regex`  | `string` | **''**     | Custom regex pattern for the input fields.|
+
+
+#### Outputs
+
+
+| Output | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `otpChange`      | `EventEmitter<string>` | Emits the current OTP value when it changes |
+| `otpComplete`      | `EventEmitter<string>` | Emits the OTP value when all fields are filled. |
+
+
+## Contributing
+
+Contributions are welcome! Please submit a pull request or open an issue to discuss changes. 🚀
+
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+

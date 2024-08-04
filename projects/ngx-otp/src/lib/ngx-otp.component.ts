@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, 
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 @Component({
-  selector: 'ngx-otp',
+  selector: 'ngx-otp-code-input',
   templateUrl: './ngx-otp.component.html',
   styleUrls: ['./ngx-otp.component.scss'],
 })

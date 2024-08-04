@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgxOtpModule } from 'ngx-otp';
+import { NgxOtpCodeInputModule  } from 'ngx-otp';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgxOtpModule,
+    NgxOtpCodeInputModule ,
     BrowserAnimationsModule
   ],
   providers: [],

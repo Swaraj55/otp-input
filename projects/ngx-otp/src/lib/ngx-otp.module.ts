@@ -22,4 +22,4 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     NgxOtpComponent
   ]
 })
-export class NgxOtpModule { }
+export class NgxOtpCodeInputModule  { }
