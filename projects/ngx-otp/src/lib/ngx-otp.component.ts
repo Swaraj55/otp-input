@@ -11,9 +11,9 @@ export class NgxOtpComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input() disabled: boolean = false;
   @Input() readonly: boolean = false;
-  @Input() autofocus: boolean = true; // true by default
-  @Input() mask: boolean = false; // Essentially used to hide the value, similar to how it is done for password inputs.
-  @Input() integerOnly: boolean = false; // The input will only accept integer values; any other characters will be ignored.
+  @Input() autofocus: boolean = true; // * true by default
+  @Input() mask: boolean = false; // * Essentially used to hide the value, similar to how it is done for password inputs.
+  @Input() integerOnly: boolean = false; // * The input will only accept integer values; any other characters will be ignored.
   @Input() tabIndex: boolean = false;
 
   @Input() length: number = 4; // or 6
@@ -47,7 +47,7 @@ export class NgxOtpComponent implements OnInit, OnChanges, AfterViewInit {
     const input = event.target as HTMLInputElement;
     const index = Number(input.getAttribute('data-index'));
 
-    // If integerOnly is true then if user try to enetered non integer value make the field empty
+    // * If integerOnly is true then if user try to enetered non integer value make the field empty
     if (this.integerOnly) {
       input.value = input.value.replace(/\D/g, '');
     }
@@ -78,7 +78,7 @@ export class NgxOtpComponent implements OnInit, OnChanges, AfterViewInit {
   onPaste(event: ClipboardEvent): void {
     let pasteData = event.clipboardData?.getData('text').trim() || '';
     console.log('pasteData', pasteData)
-    // If integerOnly is true, filter out non-numeric characters
+    // * If integerOnly is true, filter out non-numeric characters
     if (this.integerOnly && pasteData) {
       pasteData = pasteData.replace(/\D/g, '');
     }
@@ -91,7 +91,7 @@ export class NgxOtpComponent implements OnInit, OnChanges, AfterViewInit {
   
       this.updateOtpValue();
   
-      // Focus on the next input after the last filled input
+      // * Focus on the next input after the last filled input
       const lastIndex = this.otpControls.length - 1;
       this.otpInput.toArray()[lastIndex].nativeElement.focus();
     }
@@ -103,7 +103,7 @@ export class NgxOtpComponent implements OnInit, OnChanges, AfterViewInit {
     const otpValue = this.otpInput.toArray().map(input => input.nativeElement.value).join('');
     this.otpChange.emit(otpValue); // Emit the OTP value
 
-    // Check if the OTP is complete
+    // * Check if the OTP is complete
     if (otpValue.length === this.otpControls.length) {
       this.otpComplete.emit(otpValue);
     }
