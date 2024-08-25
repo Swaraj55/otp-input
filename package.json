@@ -1,13 +1,14 @@
 {
   "name": "otp-input",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "build-library": "ng build ngx-otp-code-input",
-    "watch": "ng build --watch --configuration development --project=ngx-otp-code",
-    "test": "ng test"
+    "build-lib-watch": "ng build --watch --configuration development --project=ngx-otp-code-input",
+    "test": "ng test",
+    "showcase": "ng serve --project=showcase"
   },
   "private": true,
   "dependencies": {

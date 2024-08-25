@@ -30,7 +30,7 @@ Thank you for your interest in contributing to **ngx-otp-code-input**! Your cont
 5. **Run Tests** ✅  
    Before committing your changes, ensure all tests pass by running:
     ```bash
-    npm run test-lib
+    npm run showcase
     ```
 
 6. **Commit Your Changes** 💾  
