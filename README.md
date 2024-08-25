@@ -117,5 +117,5 @@ Contributions are welcome! Please submit a pull request or open an issue to disc
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://github.com/Swaraj55/otp-input/blob/master/LICENSE)
 
