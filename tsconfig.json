@@ -12,8 +12,8 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "paths": {
-      "ngx-otp": [
-        "dist/ngx-otp"
+      "ngx-otp-code-input": [
+        "dist/ngx-otp-code-input"
       ]
     },
     "declaration": false,

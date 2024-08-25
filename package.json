@@ -5,8 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build-library": "ng build ngx-otp",
-    "watch": "ng build --watch --configuration development --project=ngx-otp",
+    "build-library": "ng build ngx-otp-code-input",
+    "watch": "ng build --watch --configuration development --project=ngx-otp-code",
     "test": "ng test"
   },
   "private": true,
