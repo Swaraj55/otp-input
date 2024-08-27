@@ -15,6 +15,8 @@ If you like the library, please consider giving it a ⭐ on GitHub.
 - Read-only and Disabled States: Make the input fields read-only or disabled.
 - Tab Index: Control tab navigation between input fields.
 - Events: Emit events on OTP change and completion.
+- Success/Error Status Feedback: Visually indicate the result of OTP verification with customizable icons and colors.
+- Animated Transitions: Smooth transitions or animations when focusing between OTP input fields.
 
 
 ## Installation
@@ -60,6 +62,10 @@ Add the **ngx-otp-code-input** component to your template:
   variant="outline"
   [readonly]="false"
   [autofocus]="true"
+  [animationConfig]="{ type: 'slide', duration: '1.0s' }" <!-- Optional: Configure animations -->
+  [status]="otpStatus" <!-- Bind this to a variable in your component -->
+  [successIcon]="'check_circle'" <!-- Optional: Bind to a custom icon for success -->
+  [failureIcon]="'cancel'" <!-- Optional: Bind to a custom icon for failure -->
   [tabIndex]="true"
   (otpChange)="onOtpChange($event)"
   (otpComplete)="onOtpComplete($event)"
@@ -73,6 +79,8 @@ Add event handlers in your component:
 
 ```javascript
 export class AppComponent {
+  otpStatus: 'success' | 'failed' | null = null;
+
   onOtpComplete(event: string): void {
     console.log('OTP Complete:', event);
   }
@@ -99,6 +107,10 @@ export class AppComponent {
 | `inputClass`  | `string` | **''**     | Custom CSS class for the input fields.|
 | `variant`  | `MatFormFieldAppearance` | **'outline', 'fill'**     | Appearance of the Material form field.|
 | `regex`  | `string` | **''**     | Custom regex pattern for the input fields.|
+| `status` | `any` | **null**   | Visual status of OTP verification.|
+| `successIcon`  | `string` | **'check_circle'**     | Custom icon for success status.|
+| `failureIcon`  | `string` | **'error'**     | Custom icon for failure status.|
+| `animationConfig`  | `{ type: string, duration: string }` | **{ type: 'slide', duration: '1.0s' }**     | Configuration for animations when focusing between input fields.|
 
 
 #### Outputs
