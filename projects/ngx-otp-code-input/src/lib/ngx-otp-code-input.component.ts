@@ -15,6 +15,10 @@ export class NgxOtpCodeInputComponent implements OnInit, OnChanges, AfterViewIni
   @Input() mask: boolean = false; // * Essentially used to hide the value, similar to how it is done for password inputs.
   @Input() integerOnly: boolean = false; // * The input will only accept integer values; any other characters will be ignored.
   @Input() tabIndex: boolean = false;
+  @Input() animationConfig: { type: string, duration: string } = { type: 'fade', duration: '0.3s' };
+  @Input() status: 'success' | 'failed' | null = null;
+  @Input() successIcon: string = 'check_circle';
+  @Input() failureIcon: string = 'cancel';
 
   @Input() length: number = 4; // or 6
 
@@ -30,7 +34,11 @@ export class NgxOtpCodeInputComponent implements OnInit, OnChanges, AfterViewIni
 
   constructor(private renderer: Renderer2, private cdr: ChangeDetectorRef) {}
 
-  ngOnChanges(changes: SimpleChanges): void {}
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['animationConfig']) {
+      this.renderer.setStyle(document.documentElement, '--animation-duration', this.animationConfig.duration);
+    }
+  }  
 
   ngOnInit(): void {
     this.otpControls = new Array(this.length).fill(null);
@@ -42,6 +50,10 @@ export class NgxOtpCodeInputComponent implements OnInit, OnChanges, AfterViewIni
       this.cdr.detectChanges();
     }
   }
+
+  getAnimationClass(): string {
+    return `animate-${this.animationConfig.type}`;
+  }  
 
   onInputChange(event: any) {
     const input = event.target as HTMLInputElement;

@@ -9,6 +9,37 @@
     text-align: center;
 }
 
+.otp-input {
+    &.otp-success {
+        border-color: green;
+
+        input {
+            color: green;
+            border-bottom: 2px solid green;
+        }
+    }
+
+    &.otp-failed {
+        border-color: red;
+
+        input {
+            color: red;
+            border-bottom: 2px solid red;
+        }
+    }
+}
+
+::ng-deep .status-icon.success {
+    color: green !important;
+    /* For success status */
+}
+
+::ng-deep .status-icon.failed {
+    color: red !important;
+    /* For failed status */
+}
+  
+
 input {
     text-align: center;
     font-size: 18px;
@@ -22,4 +53,25 @@ input {
     .mat-mdc-form-field-infix {
         font-size: 22px;
     }
+}
+
+.otp-container {
+    .animate-fade {
+        transition: opacity var(--animation-duration);
+        opacity: 0.5;
+    }
+
+    .animate-slide {
+        transition: transform var(--animation-duration);
+        transform: translateX(0);
+    }
+
+    .animate-zoom {
+        transition: transform var(--animation-duration);
+        transform: scale(1);
+    }
+}
+
+:host {
+    --animation-duration: 1.5s;
 }

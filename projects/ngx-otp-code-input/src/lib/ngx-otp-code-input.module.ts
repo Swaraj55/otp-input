@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxOtpCodeInputComponent } from './ngx-otp-code-input.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
+import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
     NgxOtpCodeInputComponent
@@ -16,7 +16,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     BrowserModule,
 
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatIconModule
   ],
   exports: [
     NgxOtpCodeInputComponent

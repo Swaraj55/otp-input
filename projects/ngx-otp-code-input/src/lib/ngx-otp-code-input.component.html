@@ -1,6 +1,9 @@
 <div class="otp-container">
     <ng-container *ngFor="let otpValue of otpControls; let i = index">
-        <mat-form-field [appearance]="variant" class="otp-input" [id]="'otp_input_' + i">
+        <mat-form-field [appearance]="variant" class="otp-input" [id]="'otp_input_' + i" [ngClass]="{
+          'otp-success': status === 'success',
+          'otp-failed': status === 'failed'
+        }">
             <input
               matInput
               [type]="mask ? 'password' : 'text'"
@@ -10,6 +13,7 @@
               [disabled]="disabled"
               [attr.data-index]="i"
               (input)="onInputChange($event)"
+              [ngClass]="getAnimationClass()"
               (keydown)="onKeyDown($event)"
               (paste)="onPaste($event)"
               maxlength="1"
@@ -17,6 +21,9 @@
               [id]="'my_input_' + i"
               [pattern]="integerOnly ? '\\d*' : ''"
             />
+            <!-- Add status indicator -->
+            <mat-icon *ngIf="status === 'success'" class="status-icon success">check_circle</mat-icon>
+            <mat-icon *ngIf="status === 'failed'" class="status-icon failed">cancel</mat-icon>
           </mat-form-field>
     </ng-container>
 </div>
