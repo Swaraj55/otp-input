@@ -10,6 +10,21 @@
     "test": "ng test",
     "showcase": "ng serve --project=showcase"
   },
+  "keywords": [
+    "angular",
+    "otp",
+    "input",
+    "component",
+    "javascript",
+    "typescript",
+    "one-time-password",
+    "sms",
+    "sms code",
+    "ngx",
+    "ngx-otp-code-input"
+  ],
+  "author": "Swaraj Kumar Chaturvedi",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@angular/animations": "^16.1.0",
