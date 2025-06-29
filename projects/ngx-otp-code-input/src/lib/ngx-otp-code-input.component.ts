@@ -2,9 +2,10 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, 
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 
 @Component({
-  selector: 'ngx-otp-code-input',
-  templateUrl: './ngx-otp-code-input.component.html',
-  styleUrls: ['./ngx-otp-code-input.component.scss'],
+    selector: 'ngx-otp-code-input',
+    templateUrl: './ngx-otp-code-input.component.html',
+    styleUrls: ['./ngx-otp-code-input.component.scss'],
+    standalone: false
 })
 export class NgxOtpCodeInputComponent implements OnInit, OnChanges, AfterViewInit {
   @ViewChildren('otpInput') otpInput!: QueryList<ElementRef>;
