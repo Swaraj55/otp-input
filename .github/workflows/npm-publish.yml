@@ -26,6 +26,6 @@ jobs:
         run: npm run build-library
 
       - name: Publish to npm
-        run: npm publish dist/ngx-otp-code-input --access public
+        run: npm publish dist/ngx-otp-code-input --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.OTP_INPUT_LIBRARY }}
