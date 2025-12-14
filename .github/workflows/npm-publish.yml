@@ -8,6 +8,9 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # Required for provenance
 
     steps:
       - name: Download code
@@ -25,7 +28,10 @@ jobs:
       - name: Build Angular library
         run: npm run build-library
 
+      - name: Configure Git to use HTTPS
+        run: git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+
       - name: Publish to npm
-        run: npm publish dist/ngx-otp-code-input --access public --no-git-checks
+        run: npm publish dist/ngx-otp-code-input --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
