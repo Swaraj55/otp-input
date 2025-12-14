@@ -1,9 +1,9 @@
 {
   "name": "ngx-otp-code-input",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Swaraj55/otp-input.git"
+    "url": "git+https://github.com/Swaraj55/otp-input.git"
   },
   "homepage": "https://github.com/Swaraj55/otp-input#readme",
   "bugs": {
