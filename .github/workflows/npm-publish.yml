@@ -32,6 +32,6 @@ jobs:
         run: git config --global url."https://github.com/".insteadOf ssh://git@github.com/
 
       - name: Publish to npm
-        run: npm publish dist/ngx-otp-code-input --access public
+        run: npm publish dist/ngx-otp-code-input --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
