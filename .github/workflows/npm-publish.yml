@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write  # Required for provenance
+      id-token: write
 
     steps:
       - name: Download code
@@ -28,10 +28,12 @@ jobs:
       - name: Build Angular library
         run: npm run build-library
 
-      - name: Configure Git to use HTTPS
-        run: git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+      - name: Remove repository field from package.json
+        run: |
+          cd dist/ngx-otp-code-input
+          node -e "const pkg=require('./package.json'); delete pkg.repository; require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2));"
 
       - name: Publish to npm
-        run: npm publish dist/ngx-otp-code-input --access public --no-git-checks
+        run: npm publish dist/ngx-otp-code-input --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
