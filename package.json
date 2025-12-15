@@ -9,9 +9,9 @@
     "build-lib-watch": "ng build --watch --configuration development --project=ngx-otp-code-input",
     "test": "ng test",
     "showcase": "ng serve --project=showcase",
-    "release:patch": "cd projects/ngx-otp-code-input && npm version patch && cd ../.. && git add . && git commit -m \"chore: bump patch version\" && git push && git push --tags",
-    "release:minor": "cd projects/ngx-otp-code-input && npm version minor && cd ../.. && git add . && git commit -m \"chore: bump minor version\" && git push && git push --tags",
-    "release:major": "cd projects/ngx-otp-code-input && npm version major && cd ../.. && git add . && git commit -m \"chore: bump major version\" && git push && git push --tags"
+    "release:patch": "cd projects/ngx-otp-code-input && npm version patch --tag-version-prefix=v && cd ../.. && git push && git push --tags",
+    "release:minor": "cd projects/ngx-otp-code-input && npm version minor --tag-version-prefix=v && cd ../.. && git push && git push --tags",
+    "release:major": "cd projects/ngx-otp-code-input && npm version major --tag-version-prefix=v && cd ../.. && git push && git push --tags"
   },
   "repository": {
     "type": "git",
