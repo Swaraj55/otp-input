@@ -1,6 +1,10 @@
 {
   "name": "ngx-otp-code-input",
-  "version": "0.0.6",
+  "version": "0.0.17",
+  "homepage": "https://github.com/Swaraj55/otp-input#readme",
+  "bugs": {
+    "url": "https://github.com/Swaraj55/otp-input/issues"
+  },
   "peerDependencies": {
     "@angular/common": "^19.2.14",
     "@angular/core": "^19.2.14"
