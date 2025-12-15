@@ -28,12 +28,17 @@ jobs:
       - name: Build Angular library
         run: npm run build-library
 
-      - name: Remove repository field from package.json
+      - name: Clean and prepare package
         run: |
           cd dist/ngx-otp-code-input
-          node -e "const pkg=require('./package.json'); delete pkg.repository; require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2));"
+          # Remove repository field completely
+          node -e "const fs=require('fs'); const pkg=JSON.parse(fs.readFileSync('package.json','utf8')); delete pkg.repository; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));"
+          # Show the cleaned package.json for debugging
+          cat package.json
 
       - name: Publish to npm
-        run: npm publish dist/ngx-otp-code-input --access public
+        run: |
+          cd dist/ngx-otp-code-input
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
