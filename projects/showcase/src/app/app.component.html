@@ -1,16 +1,307 @@
-<ngx-otp-code-input
-  [length]="6"
-  [mask]="false"
-  [integerOnly]="false"
-  [disabled]="false"
-  variant="outline"
-  [readonly]="false"
-  [autofocus]="true"
-  [animationConfig]="{ type: 'slide', duration: '1.0s' }"
-  [status]="otpStatus"
-  [successIcon]="'check_circle'"
-  [failureIcon]="'cancel'"
-  [tabIndex]="true"
-  (otpChange)="onOtpChange($event)"
-  (otpComplete)="onOtpComplete($event)"
-></ngx-otp-code-input>
+<div class="demo-container">
+  <!-- Sidebar Configuration Panel -->
+  <aside class="config-sidebar">
+    <div class="sidebar-header">
+      <h1 class="library-title">ngx-otp-code-input</h1>
+      <p class="library-subtitle">Interactive Demo & Configuration</p>
+    </div>
+
+    <div class="config-section">
+      <h3 class="section-title">Basic Configuration</h3>
+      
+      <div class="config-item">
+        <label for="length">Number of inputs:</label>
+        <input 
+          type="number" 
+          id="length" 
+          [(ngModel)]="length" 
+          (ngModelChange)="onConfigChange()"
+          min="2" 
+          max="10"
+          class="config-input">
+      </div>
+
+      <div class="config-item">
+        <label for="variant">Variant:</label>
+        <select 
+          id="variant" 
+          [(ngModel)]="variant" 
+          (ngModelChange)="onConfigChange()"
+          class="config-select">
+          <option value="outline">Outline</option>
+          <option value="fill">Fill</option>
+        </select>
+      </div>
+
+      <div class="config-item">
+        <label>
+          <input 
+            type="checkbox" 
+            [(ngModel)]="integerOnly" 
+            (ngModelChange)="onConfigChange()"
+            class="config-checkbox">
+          <span>Integer only</span>
+        </label>
+      </div>
+
+      <div class="config-item">
+        <label>
+          <input 
+            type="checkbox" 
+            [(ngModel)]="mask" 
+            (ngModelChange)="onConfigChange()"
+            class="config-checkbox">
+          <span>Mask input (password mode)</span>
+        </label>
+      </div>
+
+      <div class="config-item">
+        <label>
+          <input 
+            type="checkbox" 
+            [(ngModel)]="autofocus" 
+            (ngModelChange)="onConfigChange()"
+            class="config-checkbox">
+          <span>Auto focus</span>
+        </label>
+      </div>
+
+      <div class="config-item">
+        <label>
+          <input 
+            type="checkbox" 
+            [(ngModel)]="disabled" 
+            (ngModelChange)="onConfigChange()"
+            class="config-checkbox">
+          <span>Disabled</span>
+        </label>
+      </div>
+
+      <div class="config-item">
+        <label>
+          <input 
+            type="checkbox" 
+            [(ngModel)]="readonly" 
+            (ngModelChange)="onConfigChange()"
+            class="config-checkbox">
+          <span>Readonly</span>
+        </label>
+      </div>
+
+      <div class="config-item">
+        <label>
+          <input 
+            type="checkbox" 
+            [(ngModel)]="tabIndex" 
+            (ngModelChange)="onConfigChange()"
+            class="config-checkbox">
+          <span>Tab navigation</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="config-section">
+      <h3 class="section-title">Animation</h3>
+      
+      <div class="config-item">
+        <label for="animationType">Animation type:</label>
+        <select 
+          id="animationType" 
+          [(ngModel)]="animationType" 
+          (ngModelChange)="onConfigChange()"
+          class="config-select">
+          <option value="fade">Fade</option>
+          <option value="slide">Slide</option>
+          <option value="zoom">Zoom</option>
+        </select>
+      </div>
+
+      <div class="config-item">
+        <label for="animationDuration">Animation duration:</label>
+        <input 
+          type="text" 
+          id="animationDuration" 
+          [(ngModel)]="animationDuration" 
+          (ngModelChange)="onConfigChange()"
+          placeholder="0.3s"
+          class="config-input">
+      </div>
+    </div>
+
+    <div class="config-section">
+      <h3 class="section-title">Status & Icons</h3>
+      
+      <div class="config-item">
+        <label for="status">Status:</label>
+        <select 
+          id="status" 
+          [(ngModel)]="status" 
+          (ngModelChange)="onConfigChange()"
+          class="config-select">
+          <option [ngValue]="null">None</option>
+          <option value="success">Success</option>
+          <option value="failed">Failed</option>
+        </select>
+      </div>
+
+      <div class="config-item">
+        <label for="successIcon">Success icon:</label>
+        <input 
+          type="text" 
+          id="successIcon" 
+          [(ngModel)]="successIcon" 
+          (ngModelChange)="onConfigChange()"
+          placeholder="check_circle"
+          class="config-input">
+      </div>
+
+      <div class="config-item">
+        <label for="failureIcon">Failure icon:</label>
+        <input 
+          type="text" 
+          id="failureIcon" 
+          [(ngModel)]="failureIcon" 
+          (ngModelChange)="onConfigChange()"
+          placeholder="cancel"
+          class="config-input">
+      </div>
+    </div>
+
+    <div class="config-section">
+      <h3 class="section-title">Advanced</h3>
+      
+      <div class="config-item">
+        <label for="inputClass">Input class:</label>
+        <input 
+          type="text" 
+          id="inputClass" 
+          [(ngModel)]="inputClass" 
+          (ngModelChange)="onConfigChange()"
+          placeholder="custom-class"
+          class="config-input">
+      </div>
+
+      <div class="config-item">
+        <label for="regex">Regex pattern:</label>
+        <input 
+          type="text" 
+          id="regex" 
+          [(ngModel)]="regex" 
+          (ngModelChange)="onConfigChange()"
+          placeholder="[0-9]*"
+          class="config-input">
+      </div>
+    </div>
+
+    <div class="config-section">
+      <div class="action-buttons">
+        <button class="action-btn clear-btn" (click)="clearOtp()">
+          <span class="material-icons">clear</span>
+          Clear
+        </button>
+        <button class="action-btn demo-btn" (click)="testSuccess()">
+          <span class="material-icons">check_circle</span>
+          Test Success
+        </button>
+        <button class="action-btn demo-btn" (click)="testFailed()">
+          <span class="material-icons">cancel</span>
+          Test Failed
+        </button>
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <a href="https://github.com" target="_blank" class="footer-link">
+        <span class="material-icons">code</span>
+        Documentation & Source
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Demo Area -->
+  <main class="demo-main">
+    <div class="demo-card">
+      <h2 class="demo-title">Enter verification code</h2>
+      
+      <div class="otp-demo-wrapper">
+        <ngx-otp-code-input
+          [length]="length"
+          [mask]="mask"
+          [integerOnly]="integerOnly"
+          [disabled]="disabled"
+          [variant]="variant"
+          [readonly]="readonly"
+          [autofocus]="autofocus"
+          [animationConfig]="animationConfig"
+          [status]="status"
+          [successIcon]="successIcon"
+          [failureIcon]="failureIcon"
+          [tabIndex]="tabIndex"
+          [inputClass]="inputClass"
+          [regex]="regex"
+          (otpChange)="onOtpChange($event)"
+          (otpComplete)="onOtpComplete($event)">
+        </ngx-otp-code-input>
+      </div>
+
+      <div class="demo-info" *ngIf="demoValue">
+        <p class="info-text">
+          <strong>Current value:</strong> 
+          <code class="value-code">{{ demoValue || '(empty)' }}</code>
+        </p>
+      </div>
+
+      <div class="demo-tips">
+        <h3 class="tips-title">💡 Tips</h3>
+        <ul class="tips-list">
+          <li>Try pasting a code to auto-fill all inputs</li>
+          <li>Use Backspace to navigate backwards</li>
+          <li>Try entering "1234" to see success status</li>
+          <li>Enter any other 4-digit code to see failed status</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Code Preview Section -->
+    <div class="code-preview-card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <span class="material-icons">code</span>
+          Code Preview
+        </h3>
+        <button class="copy-btn" (click)="copyCode()" title="Copy code">
+          <span class="material-icons">content_copy</span>
+        </button>
+      </div>
+      <pre class="code-block"><code>{{ codePreview }}</code></pre>
+    </div>
+
+    <!-- Event Logs Section -->
+    <div class="event-logs-card">
+      <div class="card-header">
+        <h3 class="card-title">
+          <span class="material-icons">event_note</span>
+          Event Logs
+        </h3>
+        <button class="clear-logs-btn" (click)="eventLogs = []" title="Clear logs">
+          <span class="material-icons">clear</span>
+        </button>
+      </div>
+      <div class="logs-container">
+        <div *ngIf="eventLogs.length === 0" class="no-logs">
+          <span class="material-icons">info</span>
+          <p>No events yet. Start typing to see events here.</p>
+        </div>
+        <div *ngFor="let log of eventLogs" class="log-item" [ngClass]="'log-' + log.type">
+          <div class="log-header">
+            <span class="log-type">{{ log.type }}</span>
+            <span class="log-time">{{ log.timestamp | date:'HH:mm:ss' }}</span>
+          </div>
+          <div class="log-value">
+            <code>{{ log.value || '(empty)' }}</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
