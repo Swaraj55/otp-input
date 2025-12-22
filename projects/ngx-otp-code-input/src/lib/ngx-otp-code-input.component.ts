@@ -39,6 +39,12 @@ export class NgxOtpCodeInputComponent implements OnInit, OnChanges, AfterViewIni
     if (changes['animationConfig']) {
       this.renderer.setStyle(document.documentElement, '--animation-duration', this.animationConfig.duration);
     }
+    
+    if (changes['length']) {
+      const newLength = changes['length'].currentValue || 4;
+      this.otpControls = new Array(newLength).fill(null);
+      this.cdr.detectChanges();
+    }
   }  
 
   ngOnInit(): void {

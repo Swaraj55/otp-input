@@ -14,8 +14,7 @@
         <input 
           type="number" 
           id="length" 
-          [(ngModel)]="length" 
-          (ngModelChange)="onConfigChange()"
+          [(ngModel)]="formLength" 
           min="2" 
           max="10"
           class="config-input">
@@ -25,8 +24,7 @@
         <label for="variant">Variant:</label>
         <select 
           id="variant" 
-          [(ngModel)]="variant" 
-          (ngModelChange)="onConfigChange()"
+          [(ngModel)]="formVariant" 
           class="config-select">
           <option value="outline">Outline</option>
           <option value="fill">Fill</option>
@@ -37,8 +35,7 @@
         <label>
           <input 
             type="checkbox" 
-            [(ngModel)]="integerOnly" 
-            (ngModelChange)="onConfigChange()"
+            [(ngModel)]="formIntegerOnly" 
             class="config-checkbox">
           <span>Integer only</span>
         </label>
@@ -48,8 +45,7 @@
         <label>
           <input 
             type="checkbox" 
-            [(ngModel)]="mask" 
-            (ngModelChange)="onConfigChange()"
+            [(ngModel)]="formMask" 
             class="config-checkbox">
           <span>Mask input (password mode)</span>
         </label>
@@ -59,8 +55,7 @@
         <label>
           <input 
             type="checkbox" 
-            [(ngModel)]="autofocus" 
-            (ngModelChange)="onConfigChange()"
+            [(ngModel)]="formAutofocus" 
             class="config-checkbox">
           <span>Auto focus</span>
         </label>
@@ -70,8 +65,7 @@
         <label>
           <input 
             type="checkbox" 
-            [(ngModel)]="disabled" 
-            (ngModelChange)="onConfigChange()"
+            [(ngModel)]="formDisabled" 
             class="config-checkbox">
           <span>Disabled</span>
         </label>
@@ -81,8 +75,7 @@
         <label>
           <input 
             type="checkbox" 
-            [(ngModel)]="readonly" 
-            (ngModelChange)="onConfigChange()"
+            [(ngModel)]="formReadonly" 
             class="config-checkbox">
           <span>Readonly</span>
         </label>
@@ -92,8 +85,7 @@
         <label>
           <input 
             type="checkbox" 
-            [(ngModel)]="tabIndex" 
-            (ngModelChange)="onConfigChange()"
+            [(ngModel)]="formTabIndex" 
             class="config-checkbox">
           <span>Tab navigation</span>
         </label>
@@ -107,8 +99,7 @@
         <label for="animationType">Animation type:</label>
         <select 
           id="animationType" 
-          [(ngModel)]="animationType" 
-          (ngModelChange)="onConfigChange()"
+          [(ngModel)]="formAnimationType" 
           class="config-select">
           <option value="fade">Fade</option>
           <option value="slide">Slide</option>
@@ -121,8 +112,7 @@
         <input 
           type="text" 
           id="animationDuration" 
-          [(ngModel)]="animationDuration" 
-          (ngModelChange)="onConfigChange()"
+          [(ngModel)]="formAnimationDuration" 
           placeholder="0.3s"
           class="config-input">
       </div>
@@ -135,8 +125,7 @@
         <label for="status">Status:</label>
         <select 
           id="status" 
-          [(ngModel)]="status" 
-          (ngModelChange)="onConfigChange()"
+          [(ngModel)]="formStatus" 
           class="config-select">
           <option [ngValue]="null">None</option>
           <option value="success">Success</option>
@@ -149,8 +138,7 @@
         <input 
           type="text" 
           id="successIcon" 
-          [(ngModel)]="successIcon" 
-          (ngModelChange)="onConfigChange()"
+          [(ngModel)]="formSuccessIcon" 
           placeholder="check_circle"
           class="config-input">
       </div>
@@ -160,8 +148,7 @@
         <input 
           type="text" 
           id="failureIcon" 
-          [(ngModel)]="failureIcon" 
-          (ngModelChange)="onConfigChange()"
+          [(ngModel)]="formFailureIcon" 
           placeholder="cancel"
           class="config-input">
       </div>
@@ -175,8 +162,7 @@
         <input 
           type="text" 
           id="inputClass" 
-          [(ngModel)]="inputClass" 
-          (ngModelChange)="onConfigChange()"
+          [(ngModel)]="formInputClass" 
           placeholder="custom-class"
           class="config-input">
       </div>
@@ -186,8 +172,7 @@
         <input 
           type="text" 
           id="regex" 
-          [(ngModel)]="regex" 
-          (ngModelChange)="onConfigChange()"
+          [(ngModel)]="formRegex" 
           placeholder="[0-9]*"
           class="config-input">
       </div>
@@ -195,6 +180,10 @@
 
     <div class="config-section">
       <div class="action-buttons">
+        <button class="action-btn apply-btn" (click)="applyChanges()">
+          <span class="material-icons">check</span>
+          Apply changes
+        </button>
         <button class="action-btn clear-btn" (click)="clearOtp()">
           <span class="material-icons">clear</span>
           Clear

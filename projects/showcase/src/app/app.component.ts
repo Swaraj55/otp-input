@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 @Component({
     selector: 'app-root',
@@ -9,7 +9,24 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'ngx-otp-code-input';
   
-  // Configuration properties
+  // Form values (what user edits)
+  formLength: number = 4;
+  formMask: boolean = false;
+  formIntegerOnly: boolean = false;
+  formDisabled: boolean = false;
+  formReadonly: boolean = false;
+  formAutofocus: boolean = true;
+  formTabIndex: boolean = false;
+  formVariant: 'outline' | 'fill' = 'outline';
+  formAnimationType: 'fade' | 'slide' | 'zoom' = 'fade';
+  formAnimationDuration: string = '0.3s';
+  formStatus: 'success' | 'failed' | null = null;
+  formSuccessIcon: string = 'check_circle';
+  formFailureIcon: string = 'cancel';
+  formInputClass: string = '';
+  formRegex: string = '';
+  
+  // Applied values (what component uses)
   length: number = 4;
   mask: boolean = false;
   integerOnly: boolean = false;
@@ -35,7 +52,26 @@ export class AppComponent implements OnInit {
   // Code preview
   codePreview: string = '';
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
   ngOnInit(): void {
+    // Initialize form values to match applied values
+    this.formLength = this.length;
+    this.formMask = this.mask;
+    this.formIntegerOnly = this.integerOnly;
+    this.formDisabled = this.disabled;
+    this.formReadonly = this.readonly;
+    this.formAutofocus = this.autofocus;
+    this.formTabIndex = this.tabIndex;
+    this.formVariant = this.variant;
+    this.formAnimationType = this.animationType;
+    this.formAnimationDuration = this.animationDuration;
+    this.formStatus = this.status;
+    this.formSuccessIcon = this.successIcon;
+    this.formFailureIcon = this.failureIcon;
+    this.formInputClass = this.inputClass;
+    this.formRegex = this.regex;
+    
     this.updateCodePreview();
   }
 
@@ -106,9 +142,46 @@ export class AppComponent implements OnInit {
     this.codePreview = `<ngx-otp-code-input\n${props}\n  (otpChange)="onOtpChange($event)"\n  (otpComplete)="onOtpComplete($event)">\n</ngx-otp-code-input>`;
   }
 
-  onConfigChange(): void {
-    this.updateCodePreview();
+  applyChanges(): void {
+    // Apply form values to component values
+    this.length = this.formLength;
+    this.mask = this.formMask;
+    this.integerOnly = this.formIntegerOnly;
+    this.disabled = this.formDisabled;
+    this.readonly = this.formReadonly;
+    this.autofocus = this.formAutofocus;
+    this.tabIndex = this.formTabIndex;
+    this.variant = this.formVariant;
+    this.animationType = this.formAnimationType;
+    this.animationDuration = this.formAnimationDuration;
+    this.status = this.formStatus;
+    this.successIcon = this.formSuccessIcon;
+    this.failureIcon = this.formFailureIcon;
+    this.inputClass = this.formInputClass;
+    this.regex = this.formRegex;
+    
+    // Clear demo value and status
+    this.demoValue = '';
     this.status = null;
+    
+    // Update code preview
+    this.updateCodePreview();
+    
+    // Trigger change detection
+    this.cdr.detectChanges();
+    
+    // Clear inputs when length changes
+    setTimeout(() => {
+      const inputs = document.querySelectorAll('input[data-index]');
+      inputs.forEach((input: any) => {
+        input.value = '';
+      });
+      // Focus first input if autofocus is enabled
+      const firstInput = document.querySelector('input[data-index="0"]') as HTMLInputElement;
+      if (firstInput && this.autofocus) {
+        firstInput.focus();
+      }
+    }, 0);
   }
 
   clearOtp(): void {
