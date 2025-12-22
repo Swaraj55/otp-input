@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build-showcase"
+  publish = "dist/showcase"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
