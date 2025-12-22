@@ -9,7 +9,7 @@
     "build-lib-watch": "ng build --watch --configuration development --project=ngx-otp-code-input",
     "test": "ng test",
     "showcase": "ng serve --project=showcase",
-    "build-showcase": "ng build --project=showcase --configuration production",
+    "build-showcase": "npm run build-library && ng build --project=showcase --configuration production",
     "build-showcase:dev": "ng build --project=showcase --configuration development",
     "deploy:gh-pages": "npm run build-showcase && npx gh-pages -d dist/showcase",
     "release:patch": "cd projects/ngx-otp-code-input && npm version patch --tag-version-prefix=v && cd ../.. && git push && git push --tags",

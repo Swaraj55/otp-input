@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build-showcase"
+  command = "npm run build-library && npm run build-showcase"
   publish = "dist/showcase"
 
 [[redirects]]

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npm run build-showcase",
+  "buildCommand": "npm run build-library && npm run build-showcase",
   "outputDirectory": "dist/showcase",
   "rewrites": [
     {
